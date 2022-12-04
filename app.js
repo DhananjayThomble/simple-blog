@@ -3,6 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const lodash = require("lodash");
 
 const PORT = 3000;
 const homeStartingContent =
@@ -38,6 +39,23 @@ app.get("/contact", (req, res) => {
 
 app.get("/compose", (req, res) => {
   res.render("compose");
+});
+
+// express routing:-
+app.get("/posts/:titleName", function (req, res) {
+  // checking url paramater with the post array
+  // #1
+  const requestedTitle = lodash.lowerCase(req.params.titleName);
+  let isFound = false;
+  for (const obj of postArray) {
+    if (lodash.lowerCase(obj.title) == requestedTitle) {
+      res.render("post", { title: obj.title, postBody: obj.post });
+      return;
+    }
+  }
+  console.log("match not found");
+  // #1
+  // console.log(req.params.postName);
 });
 
 // for getting the submited value from 'compose' page
