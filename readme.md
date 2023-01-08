@@ -1,5 +1,7 @@
 # Simple Blog website using Node.js, Express, MongoDB, Mongoose and EJS.
 
+Replit link: https://replit.com/@dhananjayT97/simple-blog
+
 ## version 1.0.0
 - Initial release
 - Added all the basic functionality
