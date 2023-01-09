@@ -8,7 +8,7 @@ function Home({ title = "", body = "" }) {
   const [isLoad, setLoad] = useState(false);
 
   useEffect(() => {
-    fetch(URL + "api/home")
+    fetch(URL + "/api/home")
       .then((res) => res.json())
       .then((res) => {
         setPost(res);
