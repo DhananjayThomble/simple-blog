@@ -1,12 +1,14 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useEffect, useState } from "react";
+import { URL } from "../config";
 
 function Home({ title = "", body = "" }) {
   const [post, setPost] = useState([]);
   const [isLoad, setLoad] = useState(false);
+
   useEffect(() => {
-    fetch("http://localhost:3002/api/home")
+    fetch(URL + "api/home")
       .then((res) => res.json())
       .then((res) => {
         setPost(res);
@@ -14,6 +16,7 @@ function Home({ title = "", body = "" }) {
       .catch((err) => console.log(err))
       .then(setLoad(true));
   }, []);
+
   if (isLoad) {
     const postArr = [];
     for (let i = 0; i < post.length; i++) {
@@ -22,21 +25,26 @@ function Home({ title = "", body = "" }) {
         <PostCard
           title={post[i].title}
           body={post[i].postBody.substring(0, 200)}
+          id={post[i].id}
+          key={post[i].id}
         />
       );
     }
     return postArr;
   }
+
   return <PostCard title={"null"} body={"null"} />;
 }
 
-const PostCard = ({ title, body }) => {
+const PostCard = ({ title, body, id }) => {
   return (
     <Card style={{ margin: "20px" }}>
       <Card.Header>{title}</Card.Header>
       <Card.Body>
         <Card.Text>{body}</Card.Text>
-        <Button variant="warning">Read More</Button>
+        <Button variant="warning" key={URL + "posts/" + id}>
+          Read More
+        </Button>
       </Card.Body>
     </Card>
   );
